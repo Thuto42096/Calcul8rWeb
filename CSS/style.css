@@ -56,10 +56,14 @@ h1, h2, h3, h4, h5, h6 {
 .calculator .buttons button:hover {
     background-color: var(--secondary-color);
 }
+.calculator .buttons button:active{
+    transition: ease-out 1s ;
+    background-color: #6c757d;
+}
 .calculator .display input {
     width: 100%;
     padding: 1em;
-    font-size: 1.5em;
+    font-size: 95rem;
     border: 2px solid var(--primary-color);
     border-radius: 8px;
     box-sizing: border-box;
