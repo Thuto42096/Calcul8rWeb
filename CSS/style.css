@@ -31,12 +31,15 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-.calculator .display {
+.calculator input.display {
     flex: 1;
     padding: 1em;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 100%;
+
+
 }
 .calculator .buttons {
     display: grid;
@@ -60,11 +63,5 @@ h1, h2, h3, h4, h5, h6 {
     transition: ease-out 1s ;
     background-color: #6c757d;
 }
-.calculator .display input {
-    width: 100%;
-    padding: 1em;
-    font-size: 95rem;
-    border: 2px solid var(--primary-color);
-    border-radius: 8px;
-    box-sizing: border-box;
-}
+
+

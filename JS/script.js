@@ -8,46 +8,72 @@ let firstValue = '';
 let shouldReset = false;
 
 // Add click event listeners to all buttons
+function handleNumber(value) {
+    if (shouldReset) {
+        currentInput = '';
+        shouldReset = false;
+    }
+    currentInput += value;
+    display.value = currentInput;
+}
+
+function handleOperator(value) {
+    operator = value;
+    firstValue = currentInput;
+    currentInput = '';
+}
+
+function handleEquals() {
+    if (operator && firstValue && currentInput) {
+        let result = eval(`${firstValue}${operator}${currentInput}`);
+        display.value = result;
+        currentInput = result;
+        shouldReset = true;
+    }
+}
+
+function handleClear() {
+    currentInput = '';
+    firstValue = '';
+    operator = '';
+    display.value = '0';
+}
+
+function handleBackspace() {
+    currentInput = currentInput.slice(0, -1);
+    display.value = currentInput || '0';
+}
+
+function handleDecimal() {
+    if (!currentInput.includes('.')) {
+        currentInput += '.';
+        display.value = currentInput;
+    }
+}
+
+function handlePercent() {
+    if (currentInput) {
+        currentInput = (parseFloat(currentInput) / 100).toString();
+        display.textContent = currentInput;
+    }
+}
+
 buttons.forEach(button => {
     button.addEventListener('click', () => {
-        const value = button.textContent;
-
-        if (button.classList.contains('btnnumber')) {
-            if (shouldReset) {
-                currentInput = '';
-                shouldReset = false;
-            }
-            currentInput += value;
-            display.textContent = currentInput;
+        if (button.classList.contains('number')) {
+            handleNumber(button.textContent);
         } else if (button.classList.contains('operator')) {
-            operator = value;
-            firstValue = currentInput;
-            currentInput = '';
+            handleOperator(button.textContent);
         } else if (button.id === 'equals') {
-            if (operator && firstValue && currentInput) {
-                let result = eval(`${firstValue}${operator}${currentInput}`);
-                display.textContent = result;
-                currentInput = result;
-                shouldReset = true;
-            }
+            handleEquals();
         } else if (button.id === 'clear') {
-            currentInput = '';
-            firstValue = '';
-            operator = '';
-            display.textContent = '0';
+            handleClear();
         } else if (button.id === 'backspace') {
-            currentInput = currentInput.slice(0, -1);
-            display.textContent = currentInput || '0';
+            handleBackspace();
         } else if (button.id === 'decimal') {
-            if (!currentInput.includes('.')) {
-                currentInput += '.';
-                display.textContent = currentInput;
-            }
+            handleDecimal();
         } else if (button.id === 'percent') {
-            if (currentInput) {
-                currentInput = (parseFloat(currentInput) / 100).toString();
-                display.textContent = currentInput;
-            }
+            handlePercent();
         }
     });
 });
