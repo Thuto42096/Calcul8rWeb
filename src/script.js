@@ -14,13 +14,22 @@ function handleNumber(value) {
         shouldReset = false;
     }
     currentInput += value;
-    display.value = currentInput;
+
+    // Show the complete expression if we have an operator
+    if (operator && firstValue) {
+        display.value = `${firstValue} ${operator} ${currentInput}`;
+    } else {
+        display.value = currentInput;
+    }
 }
 
 function handleOperator(value) {
-    operator = value;
-    firstValue = currentInput;
-    currentInput = '';
+    if (currentInput) {
+        operator = value;
+        firstValue = currentInput;
+        display.value = `${firstValue} ${operator}`;
+        currentInput = '';
+    }
 }
 
 function handleEquals() {
@@ -47,7 +56,13 @@ function handleBackspace() {
 function handleDecimal() {
     if (!currentInput.includes('.')) {
         currentInput += '.';
-        display.value = currentInput;
+
+        // Show the complete expression if we have an operator
+        if (operator && firstValue) {
+            display.value = `${firstValue} ${operator} ${currentInput}`;
+        } else {
+            display.value = currentInput;
+        }
     }
 }
 
